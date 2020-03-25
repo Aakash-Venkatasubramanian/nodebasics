@@ -6,4 +6,4 @@ console.log(notes)
 
 // console.log(validator.isEmail('aakash@aakash.'))
 
-console.log(chalk.black.bgGreen('success'))
+console.log(chalk.black.bgRed('failure'))
