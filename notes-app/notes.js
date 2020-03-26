@@ -6,6 +6,23 @@ const getNotes = function () {
     return 'Your notes...'
 }
 
+//Remove a note
+const removeNote = function(title) {
+    const notes = loadNotes()
+
+    //Check if there is a note in that name
+    const present = notes.filter(function(note) {
+        return note.title !== title
+    })
+
+    if(present.length === notes.length) {
+        console.log(chalk.black.bgRed('No such note'))
+    } else {
+        saveNotes(present)
+        console.log(chalk.black.bgGreen('The note removed is ' + title))
+    }
+}
+
 //Add notes
 const addNotes = function(title, body) {
     const notes = loadNotes()
@@ -47,5 +64,6 @@ const loadNotes = function() {
 //Export to another js file
 module.exports = {
     getNotes:getNotes,
-    addNotes:addNotes
+    addNotes:addNotes,
+    removeNote:removeNote
 }
