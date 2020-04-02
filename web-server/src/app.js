@@ -2,9 +2,33 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const publicPath = path.join(__dirname, '../public')
 
-app.use(express.static(publicPath))
+const handlebarsPath = path.join(__dirname, '../views')
+const staticPath = path.join(__dirname, '../public')
+
+app.set('view engine', 'hbs')
+app.set('views', handlebarsPath)
+app.use(express.static(staticPath))
+
+app.get('', (req, res) => {
+    res.render('index', {
+        title:'Index page',
+        author:'Aakash Venkatasubramanian'
+    })
+})
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title:'About page'
+    })
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        title:'Help page',
+        message:'This page is to help you'
+    })
+})
 
 app.get('/weather', (req, res) => {
     res.send({
