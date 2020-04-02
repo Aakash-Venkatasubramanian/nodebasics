@@ -2,17 +2,16 @@ const request = require('request')
 
 const weather = (latitude, longitude, callback) => {
     const url = 'https://api.darksky.net/forecast/c450c4ce68554b5df3581633fe44c4e9/' + latitude + ',' + longitude + '?units=si'
-    request({url:url, json:true}, (error, response) => {
+    request({url, json:true}, (error, {body}) => {
         if(error) {
-            callback('Unable to connect to internet', undefined)
-        } else if(response.body.error) {
-            callback('Invalid coordinates', undefined)
+            return callback('Unable to connect to internet', undefined)
+        } else if(body.error) {
+            return callback('Invalid coordinates', undefined)
         } else {
-            const temperature = response.body.currently.temperature
-            const precipitation = response.body.currently.precipProbability
             callback(undefined, {
-                temperature:temperature,
-                precipitation:precipitation
+                summary:body.currently.summary,
+                temperature:body.currently.temperature,
+                precipitation:body.currently.precipProbability
             })
         }
     })
