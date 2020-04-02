@@ -1,19 +1,26 @@
-const request = require('request')
 const geocode = require('./utils/geocode')
 const weather = require('./utils/weather')
 
-weather(13.09, 80.27, (error, data) => {
-    if(data === undefined) {
-        console.log('error: ', error)
-    } else {
-        console.log('data: ', data)
-    }
-})
+let address = ''
 
-geocode('Chennai', (error, data) => {
-    if(data === undefined) {
-        console.log('error: ', error)
-    } else {
-        console.log('data: ', data)
-    }
-})
+for (let index = 2; index < process.argv.length; index++) {
+    address = address + ' ' + process.argv[index];
+}
+
+if(!address) {
+    console.log('Please provide an address')
+} else {
+    geocode(address, (geocodeError, {latitude, longitude, location} = {}) => {
+        if(geocodeError) {
+            return console.log('gecoder error: ', geocodeError)
+        } else {
+            weather(latitude, longitude, (weatherError, {summary, temperature, precipitation} = {}) => {
+                if(weatherError) {
+                    return console.log('weather error: ', weatherError)
+                } else {
+                    console.log('Live weather in ' + location + '\n' + summary + '. It is ' + temperature + ' C outside with ' + precipitation + '% possibility of rain')
+                }
+            })
+        }
+    })
+}
