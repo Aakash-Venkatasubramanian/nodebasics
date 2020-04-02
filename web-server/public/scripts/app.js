@@ -1,0 +1,1 @@
+console.log('Frontend script locked and loaded')
