@@ -1,13 +1,20 @@
 const path = require('path')
 const express = require('express')
+const hbs = require('hbs')
 
 const app = express()
 
-const handlebarsPath = path.join(__dirname, '../views')
+// Define paths for static and dynamic pages - Express config
+const handlebarsPath = path.join(__dirname, '../templates/views')
+const partialHandlebarsPath = path.join(__dirname, '../templates/partials')
 const staticPath = path.join(__dirname, '../public')
 
+// Setup handlebars engine and views location
 app.set('view engine', 'hbs')
 app.set('views', handlebarsPath)
+hbs.registerPartials(partialHandlebarsPath)
+
+// Setup the static directory
 app.use(express.static(staticPath))
 
 app.get('', (req, res) => {
@@ -19,14 +26,16 @@ app.get('', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title:'About page'
+        title:'About page',
+        author:'Aakash Venkatasubramanian'
     })
 })
 
 app.get('/help', (req, res) => {
     res.render('help', {
         title:'Help page',
-        message:'This page is to help you'
+        message:'This page is to help you',
+        author:'Aakash Venkatasubramanian'
     })
 })
 
@@ -34,6 +43,20 @@ app.get('/weather', (req, res) => {
     res.send({
         location:'Chennai',
         forecast:'30 C'
+    })
+})
+
+app.get('/help/*', (req, res) => {
+    res.render('error', {
+        errorMessage:'Help article not found',
+        author:'Aakash Venkatasubramanian'
+    })
+})
+
+app.get('*', (req, res) => {
+    res.render('error', {
+        errorMessage:'404 not found',
+        author:'Aakash Venkatasubramanian'
     })
 })
 
