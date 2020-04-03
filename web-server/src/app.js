@@ -48,14 +48,14 @@ app.get('/weather', (req, res) => {
 
 app.get('/help/*', (req, res) => {
     res.render('error', {
-        errorMessage:'Help article not found',
+        title:'Help article not found',
         author:'Aakash Venkatasubramanian'
     })
 })
 
 app.get('*', (req, res) => {
     res.render('error', {
-        errorMessage:'404 not found',
+        title:'404 not found',
         author:'Aakash Venkatasubramanian'
     })
 })
