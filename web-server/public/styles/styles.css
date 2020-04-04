@@ -8,6 +8,10 @@ body {
     min-height: 100vh;
 }
 
+form {
+    margin: 16px;
+}
+
 .main-content {
     flex-grow: 1;
 }
@@ -33,4 +37,17 @@ footer {
 .landscape {
     height: 350px;
     margin: 16px;
+}
+
+input {
+    border: 1px solid #cccccc;
+    padding: 8px;
+}
+
+button {
+    border: 1px solid #888888;
+    background: #888888;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
 }
