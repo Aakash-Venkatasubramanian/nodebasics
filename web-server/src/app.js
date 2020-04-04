@@ -21,7 +21,7 @@ app.use(express.static(staticPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title:'Index page',
+        title:'Weather',
         author:'Aakash Venkatasubramanian'
     })
 })
