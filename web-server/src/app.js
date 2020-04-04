@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode')
 const weather = require('./utils/weather')
 
 const app = express()
+const port = process.env.PORT || 3000
 
 // Define paths for static and dynamic pages - Express config
 const handlebarsPath = path.join(__dirname, '../templates/views')
@@ -89,6 +90,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Backend is up and running')
 })
